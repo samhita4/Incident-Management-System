@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Incident</title>
+</head>
+<body>
+
+<h2>Create New Incident</h2>
+
+<form method="post">
+    <input type="text" name="title" placeholder="Incident Title" required><br><br>
+
+    <textarea name="description" placeholder="Incident Description"></textarea><br><br>
+
+    <label>Priority:</label><br>
+    <select name="priority" required>
+        <option value="Low">Low</option>
+        <option value="Medium">Medium</option>
+        <option value="High">High</option>
+    </select><br><br>
+
+    <button type="submit">Submit</button>
+</form>
+
+<br>
+<a href="/">⬅ Back to Dashboard</a>
+
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Incident Dashboard</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<h2>Incident Dashboard</h2>
+
+<a href="/create">➕ Create Incident</a>
+
+<table>
+<tr>
+    <th>Title</th>
+    <th>Description</th>
+    <th>Priority</th>
+    <th>Assigned To</th>
+    <th>Status</th>
+    <th>Action</th>
+</tr>
+
+{% for i in incidents %}
+<tr>
+    <td>{{ i.title }}</td>
+    <td>{{ i.description }}</td>
+    <td>{{ i.priority }}</td>
+
+    <!-- Assigned To -->
+    <td>
+        {% if not i.assigned_to %}
+        <form action="/assign/{{ i.id }}" method="post">
+            <select name="assignee" onchange="this.form.submit()">
+                <option selected disabled>Select Person</option>
+                <option value="Alice">Alice</option>
+                <option value="Bob">Bob</option>
+                <option value="Charlie">Charlie</option>
+                <option value="David">David</option>
+                <option value="Eva">Eva</option>
+            </select>
+        </form>
+        {% else %}
+            {{ i.assigned_to }}
+        {% endif %}
+    </td>
+
+    <!-- Status -->
+    <td>{{ i.status }}</td>
+
+    <!-- Action -->
+    <td>
+        {% if i.status == "Assigned" or i.status == "Not Resolved" %}
+        <form action="/update_status/{{ i.id }}" method="post">
+            <select name="action" onchange="this.form.submit()">
+                <option selected disabled>Action</option>
+                <option value="resolved">Resolved</option>
+                <option value="not_resolved">Didn’t Resolve</option>
+            </select>
+        </form>
+
+        {% elif i.status == "Resolved" %}
+            ✔ Resolved
+
+        {% else %}
+            -
+        {% endif %}
+    </td>
+</tr>
+{% endfor %}
+</table>
+
+</body>
+</html>
